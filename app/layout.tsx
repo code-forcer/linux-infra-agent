@@ -30,11 +30,19 @@ export const metadata: Metadata = {
     "log analysis",
   ],
   authors: [{ name: "InfraWatch AI" }],
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     title: "InfraWatch AI — Autonomous Linux Infrastructure Agent",
     description:
       "Real-time Linux server monitoring with AI-powered diagnostics and automated remediation.",
     type: "website",
+    images: [{ url: "/app-icon.png", width: 1920, height: 1080 }],
   },
 };
 
