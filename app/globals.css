@@ -1,0 +1,428 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Design System — Autonomous Linux Infrastructure AI Agent & Dashboard
+   Clean, light theme with #f4f4f4 base and #0ea4ff primary accent
+   ============================================================================ */
+
+@theme {
+  /* ---- Primary Palette ---- */
+  --color-primary: #0ea4ff;
+  --color-primary-dark: #0987d4;
+  --color-primary-light: #7dd3fc;
+  --color-primary-subtle: #e0f2fe;
+
+  /* ---- Surface & Background ---- */
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-hover: #fafbfc;
+  --color-background: #f4f4f4;
+  --color-background-alt: #eef0f2;
+
+  /* ---- Border & Dividers ---- */
+  --color-border: #e2e5e9;
+  --color-border-light: #eef0f2;
+  --color-border-focus: #0ea4ff;
+
+  /* ---- Text ---- */
+  --color-text-primary: #1a1d21;
+  --color-text-secondary: #5a6270;
+  --color-text-tertiary: #8b939f;
+  --color-text-inverse: #ffffff;
+
+  /* ---- Status Colors ---- */
+  --color-success: #10b981;
+  --color-success-bg: #ecfdf5;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fffbeb;
+  --color-error: #ef4444;
+  --color-error-bg: #fef2f2;
+  --color-critical: #dc2626;
+  --color-critical-bg: #fee2e2;
+  --color-info: #0ea4ff;
+  --color-info-bg: #e0f2fe;
+
+  /* ---- Severity ---- */
+  --color-severity-low: #10b981;
+  --color-severity-medium: #f59e0b;
+  --color-severity-high: #f97316;
+  --color-severity-critical: #ef4444;
+
+  /* ---- Log Levels ---- */
+  --color-log-info: #0ea4ff;
+  --color-log-debug: #8b939f;
+  --color-log-warn: #f59e0b;
+  --color-log-error: #ef4444;
+  --color-log-fatal: #dc2626;
+
+  /* ---- Spacing ---- */
+  --spacing-panel: 1.25rem;
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-glow-primary: 0 0 20px rgba(14, 164, 255, 0.15);
+
+  /* ---- Radius ---- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* ---- Fonts ---- */
+  --font-heading: var(--font-ubuntu), "Ubuntu", system-ui, sans-serif;
+  --font-body: var(--font-lato), "Lato", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+}
+
+/* ============================================================================
+   Base Styles
+   ============================================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================================
+   Scrollbar Styling (Webkit + Firefox)
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* ============================================================================
+   Card & Panel Components
+   ============================================================================ */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card-header {
+  padding: var(--spacing-panel);
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.card-body {
+  padding: var(--spacing-panel);
+}
+
+/* ============================================================================
+   Metric Gauge Animations
+   ============================================================================ */
+
+@keyframes gauge-fill {
+  from { stroke-dashoffset: 251.2; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.35s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out both;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ============================================================================
+   Log Level Badges
+   ============================================================================ */
+
+.log-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+
+.log-badge-info {
+  background: var(--color-info-bg);
+  color: var(--color-log-info);
+}
+
+.log-badge-debug {
+  background: var(--color-background-alt);
+  color: var(--color-log-debug);
+}
+
+.log-badge-warn {
+  background: var(--color-warning-bg);
+  color: var(--color-log-warn);
+}
+
+.log-badge-error {
+  background: var(--color-error-bg);
+  color: var(--color-log-error);
+}
+
+.log-badge-fatal {
+  background: var(--color-critical-bg);
+  color: var(--color-log-fatal);
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.2);
+}
+
+/* ============================================================================
+   Severity Indicators
+   ============================================================================ */
+
+.severity-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
+}
+
+.severity-low {
+  background: var(--color-success-bg);
+  color: var(--color-severity-low);
+}
+
+.severity-medium {
+  background: var(--color-warning-bg);
+  color: var(--color-severity-medium);
+}
+
+.severity-high {
+  background: #fff7ed;
+  color: var(--color-severity-high);
+}
+
+.severity-critical {
+  background: var(--color-critical-bg);
+  color: var(--color-severity-critical);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+}
+
+/* ============================================================================
+   Status Dot
+   ============================================================================ */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot-online {
+  background: var(--color-success);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+}
+
+.status-dot-errored {
+  background: var(--color-error);
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+
+.status-dot-stopped {
+  background: var(--color-text-tertiary);
+}
+
+.status-dot-restarting {
+  background: var(--color-warning);
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
+  animation: pulse-glow 1s ease-in-out infinite;
+}
+
+/* ============================================================================
+   Terminal / Diagnostic Panel
+   ============================================================================ */
+
+.terminal-panel {
+  background: #1e293b;
+  border-radius: var(--radius-lg);
+  border: 1px solid #334155;
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated);
+}
+
+.terminal-header {
+  background: #0f172a;
+  padding: 0.625rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid #334155;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminal-body {
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: #e2e8f0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.terminal-prompt {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.terminal-success {
+  color: var(--color-success);
+}
+
+.terminal-error {
+  color: var(--color-error);
+}
+
+.terminal-warning {
+  color: var(--color-warning);
+}
+
+.terminal-muted {
+  color: #64748b;
+}
+
+/* ============================================================================
+   Progress Bar
+   ============================================================================ */
+
+.progress-track {
+  height: 6px;
+  background: var(--color-background-alt);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================================
+   Responsive Grid
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
